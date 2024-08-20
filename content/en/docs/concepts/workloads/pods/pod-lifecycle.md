@@ -85,17 +85,18 @@ Value       | Description
 `Unknown`   | For some reason the state of the Pod could not be obtained. This phase typically occurs due to an error in communicating with the node where the Pod should be running.
 
 {{< note >}}
-When a pod is not able to stay running, it may be shown as `CrashLoopBackoff` by some kubectl commands in its `Status`.
-Make sure not to confuse "Status", a display field for user intuition, with the pod "Phase", which is an explicit part of the Kubernetes data model. 
+When a pod is failing to start repeatedly, `CrashLoopBackOff` may appear in the `Status` field of some kubectl commands.
+Make sure not to confuse _Status_, a kubectl display field for user intuition, with the pod phase.
+Pod phase is an explicit part of the Kubernetes data model and of the
+[Pod API](/docs/reference/kubernetes-api/workload-resources/pod-v1/). 
+
 ```
   NAMESPACE               NAME               READY   STATUS             RESTARTS   AGE
   alessandras-namespace   alessandras-pod    0/1     CrashLoopBackOff   200        2d9h 
 ```
 
-{{< /note >}}
+---- 
 
-
-{{< note >}}
 Similar to the above example with `CrashLoopBackoff`, this `Terminating` status also not one of the Pod phases.
 A Pod is granted a term to terminate gracefully, which defaults to 30 seconds.
 You can use the flag `--force` to [terminate a Pod by force](/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination-forced).
